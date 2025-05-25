@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class OpenAPIConfig {
 
-    @Value("${lms.openapi.dev-url}")
+    @Value("${salesflow.openapi.dev-url}")
     private String devUrl;
 
     @Bean

@@ -1,6 +1,6 @@
 package com.dsol.salesflow.auth.serice;
 
-import com.bjet.aki.lms.token.TokenRepository;
+import com.dsol.salesflow.auth.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;

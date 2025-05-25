@@ -14,5 +14,6 @@ public class User {
     private String lastName;
     private String email;
     private byte[] profilePicture;
+    private String password;
     private Role role;
 }

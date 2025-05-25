@@ -11,9 +11,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING)
-@Table(name = "USERS")
+@Table(name = "users")
 public class UserEntity extends BaseEntity {
 
     @Id

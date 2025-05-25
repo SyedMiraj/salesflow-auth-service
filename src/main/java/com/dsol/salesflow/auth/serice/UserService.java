@@ -3,19 +3,20 @@ package com.dsol.salesflow.auth.serice;
 import com.dsol.salesflow.asset.ListResultBuilder;
 import com.dsol.salesflow.asset.PagedResult;
 import com.dsol.salesflow.asset.PagedResultBuilder;
-import com.dsol.salesflow.auth.UserSpecification;
+import com.dsol.salesflow.auth.specification.UserSpecification;
 import com.dsol.salesflow.auth.domain.UserEntity;
 import com.dsol.salesflow.auth.jpa.UserRepository;
 import com.dsol.salesflow.auth.mapper.UserMapper;
 import com.dsol.salesflow.auth.model.User;
-import com.dsol.salesflow.auth.model.UserSaveRequest;
 import com.dsol.salesflow.auth.util.ImageUtils;
 import com.dsol.salesflow.exception.CommonException;
 import com.dsol.salesflow.type.Role;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,27 +25,25 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
-
-    public Long saveUser(UserSaveRequest request){
-        logger.info("Request to save request. email={}", request.getEmail());
+    public Long saveUser(User request){
+        logger.info("Request to save user. email={}", request.getEmail());
         UserEntity entity = userMapper.toEntity().map(request);
+        entity.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save(entity).getId();
     }
 
-    public User findByEmail(String email) {
+    public User findByEmail(String email, boolean passwordRequired, boolean imageRequired) {
         logger.info("Request to fetch user for auth purpose. email={}", email);
         UserEntity entity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not exist"));
-        return userMapper.toModel(true, true).map(entity);
+        return userMapper.toModel(passwordRequired, imageRequired).map(entity);
     }
 
     public Boolean exist(String email) {

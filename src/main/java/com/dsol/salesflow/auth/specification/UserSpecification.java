@@ -1,4 +1,4 @@
-package com.dsol.salesflow.auth;
+package com.dsol.salesflow.auth.specification;
 
 import com.dsol.salesflow.auth.domain.UserEntity;
 import com.dsol.salesflow.type.Role;

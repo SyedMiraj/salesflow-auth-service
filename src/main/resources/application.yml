@@ -1,12 +1,16 @@
 server:
-  port: 8053
+  port: 8051
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/lms
+    url: jdbc:postgresql://localhost:5432/salesflow
     username: root
     password: root123
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 50
+      idle-timeout: 3000
   jpa:
     hibernate:
       ddl-auto: update

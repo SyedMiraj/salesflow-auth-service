@@ -24,7 +24,7 @@ public class SecurityConfig {
 
     private final LogoutHandler logoutHandler;
     private final AuthenticationProvider authenticationProvider;
-    private final String[] openPath = {"/auth/**", "/lms-auth-service/swagger-ui.html", "/swagger-ui.html", "/lms-auth-service/swagger-ui/*", "/swagger-ui/*", "/lms-auth-service/v3/api-docs/**","/v3/api-docs/**", "/swagger-resources/**", "/api-docs/**", "/lms-auth-service/api-docs/**"};
+    private final String[] openPath = {"/auth/**", "/salesflow-auth-service/swagger-ui.html", "/swagger-ui.html", "/salesflow-auth-service/swagger-ui/*", "/swagger-ui/*", "/salesflow-auth-service/v3/api-docs/**","/v3/api-docs/**", "/swagger-resources/**", "/api-docs/**", "/salesflow-auth-service/api-docs/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

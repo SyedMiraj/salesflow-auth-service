@@ -4,7 +4,6 @@ import com.dsol.salesflow.asset.ResultMapper;
 import com.dsol.salesflow.auth.domain.UserEntity;
 import com.dsol.salesflow.auth.jpa.UserRepository;
 import com.dsol.salesflow.auth.model.User;
-import com.dsol.salesflow.auth.model.UserSaveRequest;
 import com.dsol.salesflow.auth.util.ImageUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,10 +21,11 @@ public class UserMapper {
                 .setFirstName(entity.getFirstName())
                 .setLastName(entity.getLastName())
                 .setRole(entity.getRole())
+                .setPassword(passwordRequired ? entity.getPassword() : null)
                 .setProfilePicture(imageRequired && entity.getProfilePicture() != null ? ImageUtils.decompressImage(entity.getProfilePicture()) : null);
     }
 
-    public ResultMapper<UserSaveRequest, UserEntity> toEntity(){
+    public ResultMapper<User, UserEntity> toEntity(){
         return domain -> userRepository.findByEmail(domain.getEmail())
                 .orElseGet(UserEntity::new)
                 .setEmail(domain.getEmail())
